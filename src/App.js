@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from '@fortawesome/free-regular-svg-icons'
-import { faB } from '@fortawesome/free-solid-svg-icons';
+import {faTwitter} from "@fortawesome/free-brands-svg-icons"
+import { faQuoteLeft, faQuoteRight, faCaretRight } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [quote, setQuote] = useState()
   const [author, setAuthor] = useState()
 
+  useEffect(() => {
+    handleGetNewQuote();
+  }, [])
 
 function handleGetNewQuote() {
   let apiUrl = 'https://dummyjson.com/quotes/random'
@@ -20,19 +23,27 @@ setQuote(response.data.quote)
 setAuthor(response.data.author)
 }
 
+let tweet = `https://twitter.com/intent/tweet?text="${quote}-${author}"`
+let twitterLogo = <FontAwesomeIcon className='icons' icon={faTwitter} />
+let quotesLeft = <FontAwesomeIcon className='quotes-left' icon={faQuoteLeft} />
+let quotesRight = <FontAwesomeIcon className='quotes-right' icon={faQuoteRight} />
+let arrow = <FontAwesomeIcon className='arrow' icon={faCaretRight} />
+
   return (
     <div className="App">
-      <div className='container align-center mt-5 p-3' id='quote-box'>
+      <div className='container align-center mt-5 p-5' id='quote-box'>
         <div className='row'>
-            <h2 className='text-center mt-4' id='text'>{quote}</h2>
+            <h2 className='text-center mt-4' id='text'>{quotesLeft}{quote}{quotesRight}</h2>
         </div>
+
         <div className='row'>
-            <h3 className='mt-2 text-end' id='author'> -{author}</h3>
+            <h3 className='mt-3 mb-2 text-center' id='author'> -{author}</h3>
         </div>
         
-        <button  className='btn btn-info mt-2' id='tweet-quote'><FontAwesomeIcon className='icons' icon={faBell} /></button>
-
-        <button onClick={handleGetNewQuote} className='btn btn-primary mt-2' id='new-quote'>New Quote</button>
+        <div className="d-flex justify-content-center">
+            <a href={tweet} target="_blank" rel="noreferrer" className='btn btn-info mt-4' id='tweet-quote'>{twitterLogo}</a>
+            <button onClick={handleGetNewQuote} className='btn btn-primary mt-4' id='new-quote'> New Quote {arrow}</button>
+        </div>
       </div>
       
     </div>

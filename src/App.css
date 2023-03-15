@@ -1,10 +1,49 @@
 
+.container {
+  border-radius: 9px;
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {opacity: 0;}
+ 100% {opacity: 1;}
+}
+
 #quote-box{
- background-color: aliceblue;
+ background-color: rgb(240, 248, 255);
  max-width: 650px;
 }
 
-.icons {
+#text{
+  color: rgb(100, 135, 152);
+}
+
+#author{
+  color: rgb(121, 158, 176);
   font-size: 20px;
+}
+
+.icons {
+  font-size: 19px;
   color: white;
+}
+
+.quotes-left{
+  position: relative;
+  top: -10px;
+  padding-right: 10px;
+}
+
+.quotes-right{
+  position: relative;
+  top: 10px;
+  padding-left: 10px;
+}
+
+.arrow{
+   position: relative;
+   top: 2px;
+   font-size: 19px;
 }
